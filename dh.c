@@ -192,9 +192,8 @@ int main(int argc, char ** argv)
     int b = getb();
     // int gbmodp = pow(g, b)%p;
     int gbmodp = powermod(g,p,b);
-    if(gbmodp<0){
-        gbmodp += p;
-    }
+
+    printf("gbmodp =%d\n",gbmodp);
 
     char sgbmodp[256];
     // itoa(gbmodp, sgbmodp, 10);
@@ -228,10 +227,9 @@ int main(int argc, char ** argv)
 
     //calculate gbamodp
     int gbamodp = powermod(gamodp,p,b);
+    printf("gbamodp =%d\n",gbamodp);
 
-    if(gbamodp<0){
-        gbamodp += p;
-    }
+    
     // int gbamodp = pow(gamodp%p,b)%p;
     char sgbamodp[256];
     // itoa(gbamodp, sgbamodp, 10);
@@ -469,5 +467,6 @@ int powermod(int g, int p, int b)
 	}
 
 	printf("%d\n",product);
+    return product;
     
 }

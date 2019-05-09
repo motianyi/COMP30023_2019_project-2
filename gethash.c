@@ -139,7 +139,7 @@ int main(int argc, char const *argv[])
 {
 	int g = 15;
 	int p = 97;
-	int b = 256;
+	int b = 117;
 	// double r;
 	// r = fmod(pow(g,b),p);
 
@@ -152,8 +152,6 @@ int main(int argc, char const *argv[])
 		}
 	}
 
-
-	
 	printf("%d\n",product);
     
 }
