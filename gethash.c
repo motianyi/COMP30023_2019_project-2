@@ -15,6 +15,7 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <unistd.h>
+#include <math.h>
 
 
 /*********************************************************************
@@ -74,6 +75,7 @@ void sha256_final(SHA256_CTX *ctx, BYTE hash[]);
 /*************************** HEADER FILES ***************************/
 #include <stdlib.h>
 #include <memory.h>
+#include <math.h>
 
 /****************************** MACROS ******************************/
 #define ROTLEFT(a,b) (((a) << (b)) | ((a) >> (32-(b))))
@@ -105,58 +107,72 @@ static const WORD k[64] = {
 
 int main(int argc, char const *argv[])
 {
-    // char html[2049];
-    // get the size of the file
+	int g = 15;
+	int p = 97;
+	int b = 255;
+	long double r;
+	r = ((int)pow((double)g,(double)b))%p;
+	printf("%Lf\n",r);
+	printf("%lf\n",(double)r);
+    // // char html[2049];
+    // // get the size of the file
+    // // struct stat st;
+
+    // char filename[] = "gethash.c";
+
+
+    // // get the size of the file
     // struct stat st;
-
-    char filename[] = "gethash.c";
-
-
-    // get the size of the file
-    struct stat st;
-    stat(filename, &st);
+    // stat(filename, &st);
     
-    //store size
-    size_t size = st.st_size;
+    // //store size
+    // size_t size = st.st_size;
 
-    char * buffer = 0;
-    long length;
-    FILE * f = fopen (filename, "rb");
+    // char * buffer = 0;
+    // long length;
+    // FILE * f = fopen (filename, "rb");
 
-    if (f){
-        fseek (f, 0, SEEK_END);
-        length = ftell (f);
-        fseek (f, 0, SEEK_SET);
-        buffer = malloc (length);
-        if (buffer){
-            fread (buffer, 1, length, f);
-        }
-        fclose (f);
-    }
-    // printf("%s",buffer);
-    printf("D\n");
+    // if (f){
+    //     fseek (f, 0, SEEK_END);
+    //     length = ftell (f);
+    //     fseek (f, 0, SEEK_SET);
+    //     buffer = malloc (length);
+    //     if (buffer){
+    //         fread (buffer, 1, length, f);
+    //     }
+    //     fclose (f);
+    // }
+    // // printf("%s",buffer);
+    // printf("D\n");
 
-    char* data0 = (unsigned char*)buffer;
-    printf("C\n");
-    BYTE data[size];
-    memcpy(data, data0, size);
+    // char* data0 = (unsigned char*)buffer;
+    // printf("C\n");
+    // BYTE data[size];
+    // memcpy(data, data0, size);
     
-    printf("B\n");
-    BYTE hash[32];
-    SHA256_CTX ctx;
-    // sha256_transform(ctx, data);
-    sha256_init(&ctx);
-    sha256_update(&ctx, data, size);
-    sha256_final(&ctx, hash);
-    printf("A");
+    // printf("B\n");
+    // BYTE hash[32];
+    // SHA256_CTX ctx;
+    // // sha256_transform(ctx, data);
+    // sha256_init(&ctx);
+    // sha256_update(&ctx, data, size);
+    // sha256_final(&ctx, hash);
+    // printf("A");
     
-    printf("hashedChars: ");
-    for (int i = 0; i < 32; i++) {
-        printf("%x", hash[i]);
-    }
-    printf("\n");
+    // printf("hashedChars: ");
+    // for (int i = 0; i < 32; i++) {
+    //     printf("%x", hash[i]);
+    // }
+    // printf("\n");
 
-    return 0;
+	// unsigned char first = hash[0];
+	//  printf("%x\n", hash[0]);
+    // int b = 0;
+	// b = (unsigned int)first;
+    
+    // printf("b = %d\n", b);
+
+    // return 0;
 }
 
 void sha256_transform(SHA256_CTX *ctx, const BYTE data[])
