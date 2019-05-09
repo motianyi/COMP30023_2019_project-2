@@ -1,5 +1,4 @@
 /* A simple client program  */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -9,7 +8,6 @@
 #include <netinet/in.h>
 #include <netdb.h>
 #include <unistd.h>
-
 #include <errno.h>
 #include <stdbool.h>
 #include <stdio.h>
@@ -28,6 +26,7 @@
 #include <sys/types.h>
 #include <unistd.h>
 #include <math.h>
+
 
 
 /*********************************************************************
