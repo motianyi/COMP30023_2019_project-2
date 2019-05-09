@@ -109,9 +109,9 @@ int main(int argc, char const *argv[])
 {
 	double g = 15;
 	int p = 97;
-	double b = 59;
+	double b = 92;
 	double r;
-	r = ((int)pow(g,b))%p;
+	r = fmod(pow(g,b),p);
 	
 	if(r<0){
 		r+=p;

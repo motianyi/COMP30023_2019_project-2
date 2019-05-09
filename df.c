@@ -191,7 +191,7 @@ int main(int argc, char ** argv)
     //first byte
     int b = getb();
     // int gbmodp = pow(g, b)%p;
-    int gbmodp = ((int)pow((double)g,(double)b))%p;
+    int gbmodp = fmod(pow((double)g,(double)b),p);
     if(gbmodp<0){
         gbmodp += p;
     }
@@ -227,7 +227,7 @@ int main(int argc, char ** argv)
     
 
     //calculate gbamodp
-    int gbamodp = ((int)pow((double)gamodp,(double)b))%p;
+    int gbamodp = fmod(pow((double)gamodp,(double)b),p);
 
     if(gbamodp<0){
         gbamodp += p;
