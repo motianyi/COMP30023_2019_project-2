@@ -105,78 +105,57 @@ static const WORD k[64] = {
 
 
 
+// int main(int argc, char const *argv[])
+// {
+// 	int g = 15;
+// 	int p = 97;
+// 	double b = 256;
+// 	// double r;
+// 	// r = fmod(pow(g,b),p);
+	
+// 	int number_tens = ((int)b)/10;
+// 	int remainder = ((int)b)%10;
+// 	int i;
+// 	double product = 1;
+// 	for(i=0; i<number_tens; i++){
+// 		product *= fmod(pow(g,10),p);
+// 		printf("%lf\n",product);
+// 	}
+// 	product *= pow(g,remainder);
+// 	printf("%lf\n",product);
+
+// 	double result = (int)product%p;
+
+// 	printf("%f\n",result);
+
+// 	// printf("%lf\n",r);
+// 	// printf("%lf\n",(double)r);
+    
+// }
+
+
+
 int main(int argc, char const *argv[])
 {
-	double g = 15;
+	int g = 15;
 	int p = 97;
-	double b = 92;
-	double r;
-	r = fmod(pow(g,b),p);
-	
-	if(r<0){
-		r+=p;
+	int b = 256;
+	// double r;
+	// r = fmod(pow(g,b),p);
+
+	int i;
+	int product = 1;
+	for(i=0; i<b; i++){
+		product *= g;
+		if(product > p){
+			product = product%p;
+		}
 	}
-	printf("%lf\n",r);
-	printf("%lf\n",(double)r);
-    // // char html[2049];
-    // // get the size of the file
-    // // struct stat st;
-
-    // char filename[] = "gethash.c";
 
 
-    // // get the size of the file
-    // struct stat st;
-    // stat(filename, &st);
+	
+	printf("%d\n",product);
     
-    // //store size
-    // size_t size = st.st_size;
-
-    // char * buffer = 0;
-    // long length;
-    // FILE * f = fopen (filename, "rb");
-
-    // if (f){
-    //     fseek (f, 0, SEEK_END);
-    //     length = ftell (f);
-    //     fseek (f, 0, SEEK_SET);
-    //     buffer = malloc (length);
-    //     if (buffer){
-    //         fread (buffer, 1, length, f);
-    //     }
-    //     fclose (f);
-    // }
-    // // printf("%s",buffer);
-    // printf("D\n");
-
-    // char* data0 = (unsigned char*)buffer;
-    // printf("C\n");
-    // BYTE data[size];
-    // memcpy(data, data0, size);
-    
-    // printf("B\n");
-    // BYTE hash[32];
-    // SHA256_CTX ctx;
-    // // sha256_transform(ctx, data);
-    // sha256_init(&ctx);
-    // sha256_update(&ctx, data, size);
-    // sha256_final(&ctx, hash);
-    // printf("A");
-    
-    // printf("hashedChars: ");
-    // for (int i = 0; i < 32; i++) {
-    //     printf("%x", hash[i]);
-    // }
-    // printf("\n");
-
-	// unsigned char first = hash[0];
-	//  printf("%x\n", hash[0]);
-    // int b = 0;
-	// b = (unsigned int)first;
-    
-    // printf("b = %d\n", b);
-
-    // return 0;
 }
 
 void sha256_transform(SHA256_CTX *ctx, const BYTE data[])

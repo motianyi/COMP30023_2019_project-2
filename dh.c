@@ -63,6 +63,7 @@ void sha256_init(SHA256_CTX *ctx);
 void sha256_transform(SHA256_CTX *ctx, const BYTE data[]);
 void sha256_update(SHA256_CTX *ctx, const BYTE data[], size_t len);
 void sha256_final(SHA256_CTX *ctx, BYTE hash[]);
+int powermod(int g, int p, int b);
 
 #endif // SHA256_H
 
@@ -190,7 +191,7 @@ int main(int argc, char ** argv)
     //first byte
     int b = getb();
     // int gbmodp = pow(g, b)%p;
-    int gbmodp = fmod(pow((double)g,(double)b),p);
+    int gbmodp = powermod(g,p,b);
     if(gbmodp<0){
         gbmodp += p;
     }
@@ -226,7 +227,7 @@ int main(int argc, char ** argv)
     
 
     //calculate gbamodp
-    int gbamodp = fmod(pow((double)gamodp,(double)b),p);
+    int gbamodp = powermod(gamodp,p,b);
 
     if(gbamodp<0){
         gbamodp += p;
@@ -450,3 +451,23 @@ void sha256_final(SHA256_CTX *ctx, BYTE hash[])
 
 
 
+int powermod(int g, int p, int b)
+{
+	// int g = 15;
+	// int p = 97;
+	// int b = 256;
+	// double r;
+	// r = fmod(pow(g,b),p);
+
+	int i;
+	int product = 1;
+	for(i=0; i<b; i++){
+		product *= g;
+		if(product > p){
+			product = product%p;
+		}
+	}
+
+	printf("%d\n",product);
+    
+}
