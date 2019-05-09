@@ -13,6 +13,7 @@
 #include <netinet/in.h>
 #include <netdb.h>
 #include <unistd.h>
+#include "sha256.h"
 
 
 int main(int argc, char ** argv)
