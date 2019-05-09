@@ -180,9 +180,8 @@ int main(int argc, char ** argv)
 
     //username
     char username[] = "tianyim\n";
-
-    printf("AAA\n");
     n = write(sockfd, username, strlen(username));
+    printf("username sent\n");
 
     if (n < 0)
     {
@@ -196,7 +195,7 @@ int main(int argc, char ** argv)
 
     char sgbmodp[256];
     // itoa(gbmodp, sgbmodp, 10);
-    sprintf(sgbmodp, "%d", gbmodp);
+    sprintf(sgbmodp, "%d\n", gbmodp);
 
     //send gbmodp
     n = write(sockfd, sgbmodp,strlen(sgbmodp));
@@ -219,7 +218,7 @@ int main(int argc, char ** argv)
         exit(0);
     }
 
-    printf("%s\n", buffer);
+    printf("received is %s\n", buffer);
 
     int gamodp = atoi(buffer);
 
@@ -228,7 +227,7 @@ int main(int argc, char ** argv)
     // int gbamodp = pow(gamodp%p,b)%p;
     char sgbamodp[256];
     // itoa(gbamodp, sgbamodp, 10);
-    sprintf(sgbamodp, "%d", gbamodp);
+    sprintf(sgbamodp, "%d\n", gbamodp);
 
  
 
