@@ -107,12 +107,16 @@ static const WORD k[64] = {
 
 int main(int argc, char const *argv[])
 {
-	int g = 15;
+	double g = 15;
 	int p = 97;
-	int b = 255;
-	long double r;
-	r = ((int)pow((double)g,(double)b))%p;
-	printf("%Lf\n",r);
+	double b = 59;
+	double r;
+	r = ((int)pow(g,b))%p;
+	
+	if(r<0){
+		r+=p;
+	}
+	printf("%lf\n",r);
 	printf("%lf\n",(double)r);
     // // char html[2049];
     // // get the size of the file

@@ -192,6 +192,9 @@ int main(int argc, char ** argv)
     int b = getb();
     // int gbmodp = pow(g, b)%p;
     int gbmodp = ((int)pow((double)g,(double)b))%p;
+    if(gbmodp<0){
+        gbmodp += p;
+    }
 
     char sgbmodp[256];
     // itoa(gbmodp, sgbmodp, 10);
@@ -221,9 +224,14 @@ int main(int argc, char ** argv)
     printf("received is %s\n", buffer);
 
     int gamodp = atoi(buffer);
+    
 
     //calculate gbamodp
     int gbamodp = ((int)pow((double)gamodp,(double)b))%p;
+
+    if(gbamodp<0){
+        gbamodp += p;
+    }
     // int gbamodp = pow(gamodp%p,b)%p;
     char sgbamodp[256];
     // itoa(gbamodp, sgbamodp, 10);
