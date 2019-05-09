@@ -27,6 +27,7 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <unistd.h>
+#include <math.h>
 
 
 /*********************************************************************
@@ -180,6 +181,7 @@ int main(int argc, char ** argv)
     //username
     char username[] = "tianyim\n";
 
+    printf("AAA\n");
     n = write(sockfd, username, strlen(username));
 
     if (n < 0)
@@ -193,7 +195,8 @@ int main(int argc, char ** argv)
     int gbmodp = ((int)pow((double)g,(double)b))%p;
 
     char sgbmodp[256];
-    itoa(gbmodp, sgbmodp, 10);
+    // itoa(gbmodp, sgbmodp, 10);
+    sprintf(sgbmodp, "%d", gbmodp);
 
     //send gbmodp
     n = write(sockfd, sgbmodp,strlen(sgbmodp));
@@ -224,7 +227,10 @@ int main(int argc, char ** argv)
     int gbamodp = ((int)pow((double)gamodp,(double)b))%p;
     // int gbamodp = pow(gamodp%p,b)%p;
     char sgbamodp[256];
-    itoa(gbamodp, sgbamodp, 10);
+    // itoa(gbamodp, sgbamodp, 10);
+    sprintf(sgbamodp, "%d", gbamodp);
+
+ 
 
      //send gbmodp
     n = write(sockfd, sgbamodp,strlen(sgbamodp));
