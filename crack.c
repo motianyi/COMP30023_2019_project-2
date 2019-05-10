@@ -36,24 +36,56 @@
 void guess(char* filename,int password_length);
 
 void apply_hash(BYTE *hash, BYTE *data, int size);
+void compare(char* password_filename, char* hashvalue_filename);
 
 
 
 
 /*********************** MAIN **********************/
 int main(int argc, char ** argv){
-    printf("%d\n",argc);
+    // printf("%d\n",argc);
     if(argc == 1){
-        char filename[] = "pwd4sha256";
-        guess(filename,4);
+        char filename4[] = "pwd4sha256";
+        char filename6[] = "pwd6sha256";
+
+        guess(filename4,4);
+        guess(filename6,6);
     }else if (argc == 2){
 
     }else if (argc == 3){
-
+        char* password_filename = argv[1];
+        char* hashvalue_filename = argv[2];
+        compare(password_filename, hashvalue_filename);
     }else{
         printf("error,wrong number of argument\n");
     }
     return 0;
+}
+
+void compare(char* password_filename, char* hashvalue_filename){
+    //preprocess hash value file
+    
+    // Reading size of file
+    FILE * file = fopen(hashvalue_filename, "rb");
+    if (file == NULL) return;
+    fseek(file, 0, SEEK_END);
+    long int size = ftell(file);
+    fclose(file);
+    // Reading data to array of unsigned chars
+    file = fopen(hashvalue_filename, "rb");
+    unsigned char * in = (unsigned char *) malloc(size);
+    int bytes_read = fread(in, sizeof(unsigned char), size, file);
+    fclose(file);
+
+    int number_hashes = (int)size/32;
+
+    //convert to 2D array of byte
+    BYTE hash_values[number_hashes][32];
+    for (int i = 0; i < bytes_read; i++) {
+        hash_values[i/32][i%32] = in[i];
+    }
+
+    //read pass word file one per line
 }
 
 void guess(char* filename,int password_length){
@@ -72,29 +104,13 @@ void guess(char* filename,int password_length){
     int bytes_read = fread(in, sizeof(unsigned char), size, file);
     fclose(file);
 
+    // // get the size of the file
+    // struct stat st;
+    // stat(filename, &st);
+    // size_t filesize = st.st_size;
 
-
-    printf("hashedChars: ");
-    printf("\n");
-    for (int i = 0; i < bytes_read; i++) {
-        if(i%32 == 0){
-            printf("\n");
-        }
-        // printf("%3d  ",i);
-        printf("%02x", in[i]);
-        // if(i%32 == 0){
-        //     printf("\n");
-        // }
-    }
-
-
-    // get the size of the file
-    struct stat st;
-    stat(filename, &st);
-    size_t filesize = st.st_size;
-
-    int number_hashes = (int)filesize/32;
-    printf("\n%d\n\n",number_hashes);
+    int number_hashes = (int)size/32;
+    // printf("\n%d\n\n",number_hashes);
 
     //convert to 2D array of byte
     BYTE hash_values[number_hashes][32];
@@ -130,7 +146,7 @@ void guess(char* filename,int password_length){
                         for(int m = 0; m < number_hashes; m++){
                             int result = memcmp(hash, hash_values[m],32); 
                             if(result == 0){
-                                printf("%c%c%c%c %d\n",guessed_word[0],guessed_word[1],guessed_word[2],guessed_word[3], m);
+                                printf("%c%c%c%c %d\n",guessed_word[0],guessed_word[1],guessed_word[2],guessed_word[3], m+1);
                             }
 
                         }
@@ -139,7 +155,7 @@ void guess(char* filename,int password_length){
             }
         }
     }else if(password_length == 6){
-        printf("6 password\n");
+        // printf("6 password\n");
         int start = 97;
         int end = 122;
          for(int i = start; i < end; i++){
@@ -161,7 +177,7 @@ void guess(char* filename,int password_length){
                                 for(int m = 0; m < number_hashes; m++){
                                     int result = memcmp(hash, hash_values[m],32); 
                                     if(result == 0){
-                                        printf("%c%c%c%c%c%c %d\n",guessed_word[0],guessed_word[1],guessed_word[2],guessed_word[3],guessed_word[4],guessed_word[5],m);
+                                        printf("%c%c%c%c%c%c %d\n",guessed_word[0],guessed_word[1],guessed_word[2],guessed_word[3],guessed_word[4],guessed_word[5],m+11);
                                     }
 
                                 }
@@ -172,38 +188,6 @@ void guess(char* filename,int password_length){
             }
         }
     }
-
-
-
-    
-    // for(int i = 116; i < 117; i++){
-    //     for(int j = 105; j < 106; j++){
-    //         for(int k = 97; k < 98; k++){
-    //             for(int l = 110; l < 111; l++){
-    //                 BYTE guessed_word[4];
-    //                 guessed_word[0] = (unsigned char)i;
-    //                 guessed_word[1] = (unsigned char)j;
-    //                 guessed_word[2] = (unsigned char)k;
-    //                 guessed_word[3] = (unsigned char)l;
-    //                 // printf("%c%c%c%c\n",guessed_word[0],guessed_word[1],guessed_word[2],guessed_word[3]);
-    //                 BYTE hash[32];
-    //                 apply_hash(hash, guessed_word, 4);
-    //                 for(int m = 0; m < number_hashes; m++){
-    //                     int result = memcmp(hash, hash_values[m],32); 
-    //                     if(result == 0){
-    //                         printf("%c%c%c%c %d\n",guessed_word[0],guessed_word[1],guessed_word[2],guessed_word[3], result);
-    //                     }
-                        
-
-    //                 }
-    //             }   
-    //         }
-    //     }
-    // }
-
-
-    printf("\n");
-
 }
 
 void apply_hash(BYTE *hash, BYTE *data, int size){
