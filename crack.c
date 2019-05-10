@@ -48,7 +48,7 @@ int main(int argc, char ** argv){
         char filename4[] = "pwd4sha256";
         char filename6[] = "pwd6sha256";
 
-        guess(filename4,4);
+        // guess(filename4,4);
         guess(filename6,6);
     }else if (argc == 2){
 
@@ -155,8 +155,8 @@ void guess(char* filename,int password_length){
             }
         }
     }else if(password_length == 6){
-        // printf("6 password\n");
-        int start = 97;
+        printf("6 password ASCII 64 to 122\n");
+        int start = 64;
         int end = 122;
          for(int i = start; i < end; i++){
             for(int j = start; j < end; j++){
