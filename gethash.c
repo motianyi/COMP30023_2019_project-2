@@ -137,9 +137,9 @@ static const WORD k[64] = {
 
 int main(int argc, char const *argv[])
 {
-	int g = 15;
+	int g = 53;
 	int p = 97;
-	int b = 117;
+	int b = 108;
 	// double r;
 	// r = fmod(pow(g,b),p);
 

@@ -302,6 +302,9 @@ int getb(){
     // printf("%s",buffer);
     printf("D\n");
 
+
+    
+
     char* data0 = (unsigned char*)buffer;
     printf("C\n");
     BYTE data[size];
