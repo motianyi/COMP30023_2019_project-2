@@ -228,6 +228,7 @@ int getb(){
 
 
 
+
     unsigned char* data0 = (unsigned char*)buffer;
     printf("C\n");
     BYTE data[size];
