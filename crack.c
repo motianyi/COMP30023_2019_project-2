@@ -44,7 +44,7 @@ void apply_hash(BYTE *hash, BYTE *data, int size);
 int main(int argc, char ** argv){
     printf("%d\n",argc);
     if(argc == 1){
-        char filename[] = "pwd4sha256rudy";
+        char filename[] = "pwd4sha256";
         guess(filename,4);
     }else if (argc == 2){
 
