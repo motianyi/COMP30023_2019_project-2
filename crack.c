@@ -48,14 +48,18 @@ int main(int argc, char ** argv){
         char filename4[] = "pwd4sha256";
         char filename6[] = "pwd6sha256";
 
-        // guess(filename4,4);
+        guess(filename4,4);
         guess(filename6,6);
     }else if (argc == 2){
 
     }else if (argc == 3){
         char* password_filename = argv[1];
         char* hashvalue_filename = argv[2];
+        
+        // printf("%s\n",password_filename);
+        // printf("%s\n",hashvalue_filename);
         compare(password_filename, hashvalue_filename);
+        
     }else{
         printf("error,wrong number of argument\n");
     }
@@ -63,10 +67,11 @@ int main(int argc, char ** argv){
 }
 
 void compare(char* password_filename, char* hashvalue_filename){
-    //preprocess hash value file
+
     
     // Reading size of file
     FILE * file = fopen(hashvalue_filename, "rb");
+    
     if (file == NULL) return;
     fseek(file, 0, SEEK_END);
     long int size = ftell(file);
@@ -78,6 +83,7 @@ void compare(char* password_filename, char* hashvalue_filename){
     fclose(file);
 
     int number_hashes = (int)size/32;
+    // printf("\n%d\n\n",number_hashes);
 
     //convert to 2D array of byte
     BYTE hash_values[number_hashes][32];
@@ -85,7 +91,42 @@ void compare(char* password_filename, char* hashvalue_filename){
         hash_values[i/32][i%32] = in[i];
     }
 
-    //read pass word file one per line
+     //print again
+    // for(int i = 0; i< number_hashes; i++){
+    //     for(int j = 0; j < 32; j++){
+    //         printf("%02x", hash_values[i][j]);
+    //     }
+    //     printf("\n");
+    // }
+    
+    //process password file
+    FILE *fp;
+    int MAXCHAR = 16;
+    char word[MAXCHAR];
+     
+    fp = fopen(password_filename, "r");
+    if (fp == NULL){
+        printf("Could not open file %s",password_filename);
+    }
+     
+
+    while (fgets(word, MAXCHAR, fp) != NULL){
+        
+        strtok(word, "\n");
+        
+        BYTE unsigned_word[MAXCHAR];
+        memcpy(unsigned_word, word, MAXCHAR);
+        BYTE hash[32];
+        apply_hash(hash, unsigned_word, strlen(word));
+        for(int m = 0; m < number_hashes; m++){
+            int result = memcmp(hash, hash_values[m],32); 
+            if(result == 0){
+                printf("%s %d\n",word,m);
+            }
+        }
+    }
+    fclose(fp);
+    
 }
 
 void guess(char* filename,int password_length){
