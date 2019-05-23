@@ -1,19 +1,23 @@
 CC = gcc
 CFLAGS = -std=c99 -O3 -Wall -Wpedantic
 
-EXE = dh
-OBJ = sha256.o dh.o 
+
 
 EXE1 = crack
 OBJ1 = sha256.o crack.o 
 
-$(EXE): $(OBJ)
-		$(CC) $(CFLAGS) -o $(EXE) $(OBJ)
+EXE = dh
+OBJ = sha256.o dh.o 
+
 
 $(EXE1): $(OBJ1)
 		$(CC) $(CFLAGS) -o $(EXE1) $(OBJ1)
 
-crack.o: crack.c
+$(EXE): $(OBJ)
+		$(CC) $(CFLAGS) -o $(EXE) $(OBJ)
+
+
+main.o: crack.c
 		$(CC) $(CFLAGS) -c crack.c
 
 dh.o: dh.c

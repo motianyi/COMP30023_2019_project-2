@@ -226,7 +226,7 @@ void apply_hash(BYTE *hash, BYTE *data, int size){
 }
 
 void goodguess(int length){
-    int l = length;
+    // int l = length;
 
     FILE *fp;
     int MAXCHAR = 16;
@@ -260,50 +260,22 @@ void goodguess(int length){
 
     i = 0;
     while(length>0 && i<filelength){
-        // printf("%d,%s\n",l - length+1,words[i]);
+        printf("%s\n",words[i]);
         length--;
         i++;
     }
 
-    
-    for(int bit=0; bit<6; bit++){
-        for(i = 0; i<filelength; i++){
-
-            char newWord[7];
-            strcpy(newWord,words[i]);
-            if(newWord[bit]<='z' && 'a'<= newWord[bit]){
-                newWord[bit] = newWord[bit] - 32;
-            }
-
-            // printf("%d,%s\n",l - length+1,newWord);
-            length--;
-            if(length<=0){
-                break;
-            }
-        }if(length<=0){
-            break;
-        }
-        
-    }
-    
-    //change two characters to capital
-    for(int bit=0; bit<6; bit++){
-        for(int bit2=0; bit2<6; bit2++){
-            if(bit == bit2){
-                break;
-            }
+    if(length>0){
+        for(int bit=0; bit<6; bit++){
             for(i = 0; i<filelength; i++){
-                
+
                 char newWord[7];
                 strcpy(newWord,words[i]);
                 if(newWord[bit]<='z' && 'a'<= newWord[bit]){
                     newWord[bit] = newWord[bit] - 32;
                 }
-                if(newWord[bit2]<='z' && 'a'<= newWord[bit2]){
-                    newWord[bit2] = newWord[bit2] - 32;
-                }
 
-                // printf("%d,%s\n",l - length+1,newWord);
+                printf("%s\n",newWord);
                 length--;
                 if(length<=0){
                     break;
@@ -311,8 +283,39 @@ void goodguess(int length){
             }if(length<=0){
                 break;
             }
-        }if(length<=0){
-            break;
+            
+        }
+    }
+    
+    if(length>0){
+        //change two characters to capital
+        for(int bit=0; bit<6; bit++){
+            for(int bit2=0; bit2<6; bit2++){
+                if(bit == bit2){
+                    break;
+                }
+                for(i = 0; i<filelength; i++){
+                    
+                    char newWord[7];
+                    strcpy(newWord,words[i]);
+                    if(newWord[bit]<='z' && 'a'<= newWord[bit]){
+                        newWord[bit] = newWord[bit] - 32;
+                    }
+                    if(newWord[bit2]<='z' && 'a'<= newWord[bit2]){
+                        newWord[bit2] = newWord[bit2] - 32;
+                    }
+
+                    printf("%s\n",newWord);
+                    length--;
+                    if(length<=0){
+                        break;
+                    }
+                }if(length<=0){
+                    break;
+                }
+            }if(length<=0){
+                break;
+            }
         }
     }
 
@@ -334,7 +337,7 @@ void goodguess(int length){
     if(length>0){
         length = printResult(32, 122, length);
     }
-    printf("%d",length);
+    
    
     if(length>0){
         printf("parameter too large");
