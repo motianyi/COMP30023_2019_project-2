@@ -101,7 +101,7 @@ void compare(char* password_filename, char* hashvalue_filename){
         for(int m = 0; m < number_hashes; m++){
             int result = memcmp(hash, hash_values[m],32); 
             if(result == 0){
-                printf("%s %d\n",word,m);
+                printf("%s %d\n",word,m+1);
             }
         }
     }
