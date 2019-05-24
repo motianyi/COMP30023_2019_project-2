@@ -1,4 +1,5 @@
-/* A simple client program  */
+/* A simple dh.c program 
+Tianyi Mo*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -112,7 +113,7 @@ int main(int argc, char ** argv)
     //calculate (g^b)mod p
     int gbmodp = powermod(g,p,b);
 
-    printf("gbmodp =%d\n",gbmodp);
+    // printf("gbmodp =%d\n",gbmodp);
 
     //convert to char
     char sgbmodp[256];
@@ -218,15 +219,13 @@ int getb(){
         }
         fclose (f);
     }
-    printf("D\n");
 
     //allocate buffer to it
     unsigned char* data0 = (unsigned char*)buffer;
-    printf("C\n");
+    
     BYTE data[size];
     memcpy(data, data0, size);
     
-    printf("B\n");
     BYTE hash[32];
     SHA256_CTX ctx;
     
@@ -238,11 +237,9 @@ int getb(){
     
     
     unsigned char first = hash[0];
-	printf("%x\n", hash[0]);
     int b = 0;
 	b = (unsigned int)first;
     
-    printf("b = %d\n", b);
     return b;
 }
 
@@ -262,7 +259,7 @@ int powermod(int g, int p, int b)
 		}
 	}
 
-	printf("%d\n",product);
+	// printf("%d\n",product);
     return product;
     
 }

@@ -26,7 +26,7 @@ sha256.o: sha256.c
 		$(CC) $(CFLAGS) -c sha256.c
 
 clean:
-	rm -f $(OBJ) $(EXE) $(EXE1) $(OBJ1)
+	rm -f $(OBJ) $(EXE) $(EXE1) $(OBJ1) *.exe
 
 
 
