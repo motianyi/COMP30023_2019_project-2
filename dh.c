@@ -96,7 +96,7 @@ int main(int argc, char ** argv)
     int p = 97;
     bzero(buffer, 256);
 
-    //username
+    //send username
     char username[] = "tianyim\n";
     n = write(sockfd, username, strlen(username));
     printf("username sent\n");
@@ -108,13 +108,14 @@ int main(int argc, char ** argv)
     }
     //first byte
     int b = getb();
-    // int gbmodp = pow(g, b)%p;
+
+    //calculate (g^b)mod p
     int gbmodp = powermod(g,p,b);
 
     printf("gbmodp =%d\n",gbmodp);
 
+    //convert to char
     char sgbmodp[256];
-    // itoa(gbmodp, sgbmodp, 10);
     sprintf(sgbmodp, "%d\n", gbmodp);
 
     //send gbmodp
@@ -139,7 +140,7 @@ int main(int argc, char ** argv)
     }
 
     printf("received is %s\n", buffer);
-
+    //convert char int
     int gamodp = atoi(buffer);
     
 
@@ -147,10 +148,8 @@ int main(int argc, char ** argv)
     int gbamodp = powermod(gamodp,p,b);
     printf("gbamodp =%d\n",gbamodp);
 
-    
-    // int gbamodp = pow(gamodp%p,b)%p;
+    //convert int to char array
     char sgbamodp[256];
-    // itoa(gbamodp, sgbamodp, 10);
     sprintf(sgbamodp, "%d\n", gbamodp);
 
  
@@ -189,9 +188,7 @@ int main(int argc, char ** argv)
 
 int getb(){
 
-    // char html[2049];
-    // get the size of the file
-    // struct stat st;
+    //apply hash on the content of this file(dh.c)
 
     char filename[] = "dh.c";
 
@@ -207,6 +204,7 @@ int getb(){
     long length;
     FILE * f = fopen (filename, "rb");
 
+    //load the file
     if (f){
         fseek (f, 0, SEEK_END);
         length = ftell (f);
@@ -220,13 +218,9 @@ int getb(){
         }
         fclose (f);
     }
-    // printf("%s",buffer);
     printf("D\n");
 
-
-
-
-
+    //allocate buffer to it
     unsigned char* data0 = (unsigned char*)buffer;
     printf("C\n");
     BYTE data[size];
@@ -235,20 +229,16 @@ int getb(){
     printf("B\n");
     BYTE hash[32];
     SHA256_CTX ctx;
-    // sha256_transform(ctx, data);
+    
+    //apply sha256 to the contents
     sha256_init(&ctx);
     sha256_update(&ctx, data, size);
     sha256_final(&ctx, hash);
-    printf("A");
     
-    printf("hashedChars: ");
-    for (int i = 0; i < 32; i++) {
-        printf("%x", hash[i]);
-    }
-    printf("\n");
-
+    
+    
     unsigned char first = hash[0];
-	 printf("%x\n", hash[0]);
+	printf("%x\n", hash[0]);
     int b = 0;
 	b = (unsigned int)first;
     
@@ -261,11 +251,7 @@ int getb(){
 
 int powermod(int g, int p, int b)
 {
-	// int g = 15;
-	// int p = 97;
-	// int b = 256;
-	// double r;
-	// r = fmod(pow(g,b),p);
+	//do power first and then do mod on p
 
 	int i;
 	int product = 1;
